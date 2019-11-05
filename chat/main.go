@@ -53,7 +53,7 @@ func main() {
 		facebook.New("2723504014379643", "b1c78df92a1a4f2db101b9f968aa248c", "http://localhost:8080/auth/callback/facebook"),
 	)
 
-	r := newRoom(UseGravatar)
+	r := newRoom(UseFileSystemAvatar)
 	r.tracer = trace.New(os.Stdout)
 
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
@@ -72,6 +72,7 @@ func main() {
 	})
 	http.Handle("/upload", &templateHandler{filename: "upload.html"})
 	http.HandleFunc("/uploader", uploaderHandler)
+	http.Handle("/avatars/", http.StripPrefix("/avatars/", http.FileServer(http.Dir("./avatars"))))
 
 	// 방을 가져옴
 	go r.run()
