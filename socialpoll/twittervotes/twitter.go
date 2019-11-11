@@ -103,8 +103,12 @@ func readFromTwitter(votes chan<- string) {
 		log.Println("failed to load options:", err)
 		return
 	}
+<<<<<<< HEAD
 
 	u, err := url.Parse("https://stream.twitter.com/com/1.1/statuses/filter.json")
+=======
+	u, err := url.Parse("https://stream.twitter.com/1.1/statuses/filter.json")
+>>>>>>> b6ba93ee6bf3a27ebcaea368ed30f0c0d71cde1e
 	if err != nil {
 		log.Println("creating filter request failed:", err)
 		return
@@ -141,24 +145,21 @@ func readFromTwitter(votes chan<- string) {
 }
 
 func startTwitterStream(stopchan <-chan struct{}, votes chan<- string) <-chan struct{} {
-
 	stoppedchan := make(chan struct{}, 1)
-
 	go func() {
 		defer func() {
 			stoppedchan <- struct{}{}
 		}()
-
 		for {
 			select {
 			case <-stopchan:
 				log.Println("stopping Twitter...")
 				return
 			default:
-				log.Println("Querying Twiiter...")
+				log.Println("Querying Twitter...")
 				readFromTwitter(votes)
-				log.Println(" (waiting")
-				time.Sleep(10 * time.Second) // 재연결 전 대기
+				log.Println(" (waiting)")
+				time.Sleep(10 * time.Second)
 			}
 		}
 	}()
