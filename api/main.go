@@ -30,6 +30,11 @@ func main() {
 	log.Println("Stopping...")
 }
 
+// Server 는 API 서버다
+type Server struct {
+	db *mgo.Session
+}
+
 type contextKey struct {
 	name string
 }
@@ -64,9 +69,4 @@ func withCORS(fn http.HandlerFunc) http.HandlerFunc {
 		w.Header().Set("Access-Control-Expose-Headers", "Location")
 		fn(w, r)
 	}
-}
-
-// Server 는 API 서버다
-type Server struct {
-	db *mgo.Session
 }

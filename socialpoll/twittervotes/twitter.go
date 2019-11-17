@@ -103,12 +103,7 @@ func readFromTwitter(votes chan<- string) {
 		log.Println("failed to load options:", err)
 		return
 	}
-<<<<<<< HEAD
-
-	u, err := url.Parse("https://stream.twitter.com/com/1.1/statuses/filter.json")
-=======
 	u, err := url.Parse("https://stream.twitter.com/1.1/statuses/filter.json")
->>>>>>> b6ba93ee6bf3a27ebcaea368ed30f0c0d71cde1e
 	if err != nil {
 		log.Println("creating filter request failed:", err)
 		return
